@@ -1,2 +1,2 @@
 # phd-papers-data
-The purpose of this repository is to ensure reproducibility of research carried out during my phD.This repository contains collection of programs that I have used to generate data for the papers during my phD.
+This repository is a collection of programs that can be used to reproduce data and figures that I(we) have published with my collaborators, co-authors, supervisors, during the course of my PhD @ Aerodynamics department, TU Delft; 2016-present. 
