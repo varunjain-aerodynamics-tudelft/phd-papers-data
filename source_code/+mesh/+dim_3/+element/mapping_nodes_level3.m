@@ -1,0 +1,43 @@
+function [xii,eta,zta] = mapping_nodes_level3(s,t,u,elx1,ely1,elz1,el_bounds1,elx2,ely2,elz2,el_bounds2,elx3,ely3,elz3,el_bounds3)
+
+xii1 = el_bounds1.x(elx1);
+xii2 = el_bounds1.x(elx1+1);
+
+eta1 = el_bounds1.y(ely1);
+eta2 = el_bounds1.y(ely1+1);
+
+zta1 = el_bounds1.z(elz1);
+zta2 = el_bounds1.z(elz1+1);
+
+new_el_bounds2.x = 0.5*(xii1 + xii2) + 0.5*(xii2 - xii1) * el_bounds2.x;
+new_el_bounds2.y = 0.5*(eta1 + eta2) + 0.5*(eta2 - eta1) * el_bounds2.y;
+new_el_bounds2.z = 0.5*(zta1 + zta2) + 0.5*(zta2 - zta1) * el_bounds2.z;
+
+new_xii1 = new_el_bounds2.x(elx2);
+new_xii2 = new_el_bounds2.x(elx2+1);
+
+new_eta1 = new_el_bounds2.y(ely2);
+new_eta2 = new_el_bounds2.y(ely2+1);
+
+new_zta1 = new_el_bounds2.z(elz2);
+new_zta2 = new_el_bounds2.z(elz2+1);
+
+new_new_el_bounds3.x = 0.5*(new_xii1 + new_xii2) + 0.5*(new_xii2 - new_xii1) * el_bounds3.x;
+new_new_el_bounds3.y = 0.5*(new_eta1 + new_eta2) + 0.5*(new_eta2 - new_eta1) * el_bounds3.y;
+new_new_el_bounds3.z = 0.5*(new_zta1 + new_zta2) + 0.5*(new_zta2 - new_zta1) * el_bounds3.z;
+
+new_new_xii1 = new_new_el_bounds3.x(elx3);
+new_new_xii2 = new_new_el_bounds3.x(elx3+1);
+
+new_new_eta1 = new_new_el_bounds3.y(ely3);
+new_new_eta2 = new_new_el_bounds3.y(ely3+1);
+
+new_new_zta1 = new_new_el_bounds3.z(elz3);
+new_new_zta2 = new_new_el_bounds3.z(elz3+1);
+
+xii = 0.5*(new_new_xii1 + new_new_xii2) + 0.5*(new_new_xii2 - new_new_xii1) * s;
+eta = 0.5*(new_new_eta1 + new_new_eta2) + 0.5*(new_new_eta2 - new_new_eta1) * t;
+zta = 0.5*(new_new_zta1 + new_new_zta2) + 0.5*(new_new_zta2 - new_new_zta1) * u;
+
+end
+
