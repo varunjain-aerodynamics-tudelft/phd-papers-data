@@ -12,9 +12,11 @@ clear variables
 disp('adding library paths')
 disp('...')
 
-addpath('../../../..')
-addpath('../../../../MSEM')
-addpath('../../../../export_fig')
+addpath('../../source_code/')
+addpath('../../source_code/MSEM')
+addpath('../../source_code/mass_matrix')
+addpath('../../source_code/FE_functions')
+% addpath('../../../../export_fig')
 
 %% test case
 
@@ -139,7 +141,7 @@ perm.kzz = 1;
 
 %% get metric terms
 
-dtize.metric = get_metric_3D_darcy(dtize.jacobian,perm);
+dtize.metric = metric.dim_3.get_metric_3D_darcy(dtize.jacobian,perm);
 
 %% create discretization nodes & basis
 
@@ -215,8 +217,8 @@ end
 E32 = full(incidence_matrix.dim_3.discrete_divergence(p));
 E33 = repmat(E32, [1 1 ttl_nr_el]);
 
-coll_M11 = AssembleMatrices2(gather_qqq, gather_qqq, M22);
-coll_E32 = AssembleMatrices2(gather_ppp, gather_qqq, E33);
+coll_M11 = AssembleMatrices.AssembleMatrices2(gather_qqq, gather_qqq, M22);
+coll_E32 = AssembleMatrices.AssembleMatrices2(gather_ppp, gather_qqq, E33);
 
 LHS = [coll_M11 coll_E32'; coll_E32 zeros(ttl_nr_el*p^3)];
 
@@ -394,7 +396,7 @@ boundary_dof.frnt_face = generate_boundary_dof(nodes_frnt_face, domain.mapping, 
 
 %% add Dirichlet BCs' to RHS 2
 
-element_face = element_boundary_faces_map(p);
+element_face = mesh.dim_3.element_boundary_faces_map(p);
 
 % left 
 for j = 1:Ky
